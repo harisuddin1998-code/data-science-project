@@ -145,12 +145,26 @@ if uploaded_file is not None:
         # ----- Confusion Matrix graph -----
         st.write("**Confusion Matrix** (rows = actual, columns = predicted):")
         cm = confusion_matrix(y_test, y_pred, labels=labels_present)
-        fig_cm, ax_cm = plt.subplots(figsize=(5, 4))
-        sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
-                    xticklabels=names_present, yticklabels=names_present, ax=ax_cm)
-        ax_cm.set_xlabel("Predicted")
-        ax_cm.set_ylabel("Actual")
-        st.pyplot(fig_cm)
+
+        # Make the figure bigger when there are more classes, so labels
+        # don't get squeezed together and stay readable.
+        num_classes = len(names_present)
+        fig_width = max(5.5, num_classes * 0.9)
+        fig_height = max(4.5, num_classes * 0.8)
+        fig_cm, ax_cm = plt.subplots(figsize=(fig_width, fig_height))
+        sns.heatmap(
+            cm, annot=True, fmt="d", cmap="Blues", cbar=True,
+            xticklabels=names_present, yticklabels=names_present,
+            linewidths=0.5, linecolor="white",
+            annot_kws={"size": 11}, ax=ax_cm,
+        )
+        ax_cm.set_title("Confusion Matrix", fontsize=14, fontweight="bold", pad=14)
+        ax_cm.set_xlabel("Predicted", fontsize=11, labelpad=8)
+        ax_cm.set_ylabel("Actual", fontsize=11, labelpad=8)
+        plt.setp(ax_cm.get_xticklabels(), rotation=30, ha="right")
+        plt.setp(ax_cm.get_yticklabels(), rotation=0)
+        fig_cm.tight_layout()
+        st.pyplot(fig_cm, use_container_width=False)
 
         # ----- X_test / y_test / predictions table -----
         st.write("**Test Set: Actual vs Predicted** (first 15 rows):")
