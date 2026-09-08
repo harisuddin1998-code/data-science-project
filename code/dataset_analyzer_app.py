@@ -128,18 +128,26 @@ if uploaded_file is not None:
         st.subheader("3. Model Report")
         st.metric("Test Accuracy", f"{test_accuracy * 100:.2f}%")
 
+        # Not every class is guaranteed to show up in the test set (this can
+        # happen with rare categories or small datasets). classification_report
+        # and the confusion matrix need their label list to match exactly what
+        # actually appears in y_test/y_pred, otherwise they crash - so we build
+        # that list from the real data instead of assuming every class is there.
+        labels_present = sorted(set(y_test) | set(y_pred))
+        names_present = [class_names[i] for i in labels_present]
+
         st.write("**Classification Report** (precision, recall, f1-score per class):")
         report_dict = classification_report(
-            y_test, y_pred, target_names=class_names, output_dict=True
+            y_test, y_pred, labels=labels_present, target_names=names_present, output_dict=True
         )
         st.dataframe(pd.DataFrame(report_dict).transpose())
 
         # ----- Confusion Matrix graph -----
         st.write("**Confusion Matrix** (rows = actual, columns = predicted):")
-        cm = confusion_matrix(y_test, y_pred)
+        cm = confusion_matrix(y_test, y_pred, labels=labels_present)
         fig_cm, ax_cm = plt.subplots(figsize=(5, 4))
         sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
-                    xticklabels=class_names, yticklabels=class_names, ax=ax_cm)
+                    xticklabels=names_present, yticklabels=names_present, ax=ax_cm)
         ax_cm.set_xlabel("Predicted")
         ax_cm.set_ylabel("Actual")
         st.pyplot(fig_cm)
@@ -154,11 +162,15 @@ if uploaded_file is not None:
         # ----- Decision Tree structure picture -----
         st.subheader("4. Decision Tree Structure")
         st.write("This is exactly how the model makes its decisions, step by step:")
+        # Same idea here: the tree only knows about classes it saw during
+        # training, so we label it using model.classes_ (not the full
+        # class_names list) to keep the labels lined up correctly.
+        tree_class_names = [class_names[i] for i in model.classes_]
         fig_tree, ax_tree = plt.subplots(figsize=(16, 8))
         plot_tree(
             model,
             feature_names=feature_columns,
-            class_names=class_names,
+            class_names=tree_class_names,
             filled=True,
             rounded=True,
             fontsize=8,
