@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mental Health & Stress Level Predictor</title>
+<style>
+  :root {
+    --bg: #0f1420;
+    --panel: #161d2e;
+    --panel-border: #262f45;
+    --text: #e7ebf5;
+    --muted: #9aa4bd;
+    --accent: #5b8cff;
+    --accent-soft: #223056;
+    --good: #33c37f;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 48px 24px 80px; }
+  header.hero {
+    text-align: center;
+    padding: 40px 0 32px;
+    border-bottom: 1px solid var(--panel-border);
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    font-size: 13px;
+  }
+  h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    margin: 12px 0 16px;
+  }
+  .subtitle { color: var(--muted); font-size: 17px; max-width: 640px; margin: 0 auto; }
+  .authors {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .chip b { color: var(--text); }
+  section { margin-bottom: 48px; }
+  h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: "";
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  p { color: var(--muted); }
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .stat .num { font-size: 28px; font-weight: 700; color: var(--good); }
+  .stat .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 32px; }
+  .shot { margin-bottom: 28px; }
+  .shot img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--panel-border);
+    display: block;
+  }
+  .caption { font-size: 14px; color: var(--muted); margin-top: 8px; text-align: center; font-style: italic; }
+  .links { display: flex; flex-wrap: wrap; gap: 12px; }
+  a.btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  a.btn.secondary {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--panel-border); }
+  th { color: var(--muted); font-weight: 600; }
+  td { color: var(--text); }
+  code {
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  pre {
+    background: #0b0f1a;
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 16px;
+    overflow-x: auto;
+    font-size: 13px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    padding-top: 24px;
+    border-top: 1px solid var(--panel-border);
+  }
+  footer a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">Iqra University — Data Science Project</div>
+    <h1>Mental Health &amp; Stress Level Predictor</h1>
+    <p class="subtitle">
+      A machine learning classification project that predicts a person's stress level
+      (Low / Medium / High) from their daily lifestyle routine, plus a general-purpose
+      Decision Tree Dataset Analyzer that works on any uploaded CSV dataset.
+    </p>
+    <div class="authors">
+      <span class="chip"><b>Shaikh Haris Uddin</b> — IU04-0320-0277</span>
+      <span class="chip"><b>Ali Raza</b> — IU04-0320-0281</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="stats-row">
+      <div class="stat"><div class="num">97.48%</div><div class="label">Test accuracy (mushroom dataset demo)</div></div>
+      <div class="stat"><div class="num">11</div><div class="label">Real Kaggle datasets ready to test</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Classifiers: Decision Tree, Logistic Regression, Random Forest</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What this project does</h2>
+    <div class="card">
+      <p style="margin-top:0">
+        <b style="color:var(--text)">1. Stress Level Predictor</b> — Users fill a Google Form with
+        their daily routine (sleep hours, study/work hours, screen time, physical activity,
+        pressure score, diet quality). Responses flow into a linked Google Sheet, and a Python
+        backend reads new responses and predicts Low / Medium / High stress using a trained
+        classifier.
+      </p>
+      <p style="margin-bottom:0">
+        <b style="color:var(--text)">2. Dataset Analyzer (Decision Tree)</b> — A Streamlit web app
+        where <i>any</i> CSV dataset can be uploaded. Pick the target column and feature columns,
+        and it trains a Decision Tree Classifier, then reports test accuracy, a classification
+        report, a confusion matrix, an actual-vs-predicted table on the test set, and a full
+        picture of the tree's decision-making structure.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Live demo screenshots</h2>
+    <div class="shot">
+      <img src="assets/screenshot_upload.png" alt="Dataset upload and column selection screen">
+      <div class="caption">Dataset uploaded (mushroom_classification.csv) with target/feature column selection</div>
+    </div>
+    <div class="shot">
+      <img src="assets/screenshot_confusion.png" alt="Test accuracy, classification report, and confusion matrix">
+      <div class="caption">Test accuracy (97.48%), classification report, and confusion matrix</div>
+    </div>
+    <div class="shot">
+      <img src="assets/screenshot_tree.png" alt="X_test/y_test predictions table and Decision Tree structure">
+      <div class="caption">X_test/y_test predictions table and the trained Decision Tree structure</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Run it yourself</h2>
+    <div class="card">
+      <p style="margin-top:0">This is a Python/Streamlit project, so the interactive app runs locally (GitHub Pages only hosts this static overview page):</p>
+      <pre>cd code
+pip install -r requirements.txt
+streamlit run dataset_analyzer_app.py</pre>
+      <p style="margin-bottom:0">Then upload any CSV from <code>code/sample_datasets/</code> (or your own) and click "Train Decision Tree Model".</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Sample datasets included</h2>
+    <div class="card">
+      <table>
+        <tr><th>Dataset</th><th>Target column</th><th>Accuracy</th></tr>
+        <tr><td>mushroom_classification.csv</td><td>class</td><td>99.9%</td></tr>
+        <tr><td>credit_card_fraud.csv</td><td>Class</td><td>99.9%</td></tr>
+        <tr><td>stroke_prediction.csv</td><td>stroke</td><td>94.0%</td></tr>
+        <tr><td>airline_passenger_satisfaction.csv</td><td>satisfaction</td><td>91.8%</td></tr>
+        <tr><td>bank_marketing.csv</td><td>y</td><td>90.5%</td></tr>
+        <tr><td>heart_disease.csv</td><td>target</td><td>88.3%</td></tr>
+        <tr><td>adult_census_income.csv</td><td>income</td><td>85.4%</td></tr>
+        <tr><td>employee_attrition.csv</td><td>Attrition</td><td>82.3%</td></tr>
+        <tr><td>telco_customer_churn.csv</td><td>Churn</td><td>79.2%</td></tr>
+        <tr><td>titanic.csv</td><td>Survived</td><td>74.8%</td></tr>
+        <tr><td>mental_health_dataset.csv</td><td>treatment</td><td>73.7%</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Project documents</h2>
+    <div class="links">
+      <a class="btn" href="https://github.com/harisuddin1998-code/data-science-project/raw/main/Mental_Health_Stress_Predictor_Proposal.docx">Download Proposal (.docx)</a>
+      <a class="btn secondary" href="https://github.com/harisuddin1998-code/data-science-project/blob/main/2_Phase2_Technical_Blueprint.md">Technical Blueprint</a>
+      <a class="btn secondary" href="https://github.com/harisuddin1998-code/data-science-project/blob/main/3_Viva_Preparation_Guide.md">Viva Prep Guide</a>
+      <a class="btn secondary" href="https://github.com/harisuddin1998-code/data-science-project/tree/main/code">Source Code</a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://github.com/harisuddin1998-code/data-science-project">github.com/harisuddin1998-code/data-science-project</a>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -3,5 +3,6 @@ __pycache__/
 *.pkl
 code/data/
 code/eda_*.png
-code/streamlit_log.txt
+code/*_log.txt
 code/last_processed_count.txt
+code/sample_datasets/*.csv
